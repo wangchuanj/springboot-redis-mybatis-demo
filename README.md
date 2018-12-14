@@ -6,6 +6,7 @@
     logpack日志
     lombok编写基类
     阿里druid数据库连接池 项目访问 localhost/druid/index.html
+    yml多环境配置 
     
 ###  没啥亮点,clone即用    
     
