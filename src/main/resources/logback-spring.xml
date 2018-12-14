@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOG_FILE" value="${LOG_FILE:-/services/logs/zhao-task/info}"/>
+    <property name="LOG_FILE" value="${LOG_FILE:-/services/logs/sb}"/>
     <property name="AOP_LOG_LEVEL" value="ERROR"/>
-      <property name="LOG_FILE" value="${LOG_FILE:-/services/logs/zhao-task/info}"/>
+      <property name="LOG_FILE" value="${LOG_FILE:-/services/logs/sb}"/>
 	<springProfile name="dev,test,beta">
 		<property name="PROJECT_LOG_LEVEL" value="@logLevel@"/>
 	</springProfile>
@@ -83,7 +83,7 @@
 	<logger name="org.springframework" level="ERROR"/>
 	<logger name="org.apache" level="ERROR"/>
 	<logger name="org.apache.ibatis" level="ERROR"/>
-	<logger name="com.zhaoonline.zhaotask" level="INFO"/>
+	<logger name="com.github.demo" level="INFO"/>
 
     <root level="DEBUG">
         <appender-ref ref="CONSOLE" />
