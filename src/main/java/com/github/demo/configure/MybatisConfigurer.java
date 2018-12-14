@@ -1,7 +1,7 @@
 package com.github.demo.configure;
 
+import com.github.demo.core.constants.PlatFormConstants;
 import com.github.pagehelper.PageHelper;
-import com.zhaoonline.zhaotask.core.constants.PlatFormConstants;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;

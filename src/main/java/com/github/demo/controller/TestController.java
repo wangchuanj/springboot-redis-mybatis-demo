@@ -1,8 +1,9 @@
 package com.github.demo.controller;
 
-import com.zhaoonline.zhaotask.component.redis.RedisClient;
-import com.zhaoonline.zhaotask.entity.Auctions;
-import com.zhaoonline.zhaotask.service.AuctionService;
+
+import com.github.demo.component.redis.RedisClient;
+import com.github.demo.entity.Auctions;
+import com.github.demo.service.AuctionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

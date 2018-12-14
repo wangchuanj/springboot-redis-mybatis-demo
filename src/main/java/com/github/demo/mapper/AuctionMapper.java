@@ -1,7 +1,8 @@
 package com.github.demo.mapper;
 
-import com.zhaoonline.zhaotask.core.Mapper;
-import com.zhaoonline.zhaotask.entity.Auctions;
+
+import com.github.demo.core.Mapper;
+import com.github.demo.entity.Auctions;
 
 import java.util.List;
 import java.util.Map;

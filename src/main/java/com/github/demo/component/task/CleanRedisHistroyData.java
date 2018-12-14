@@ -1,9 +1,10 @@
 package com.github.demo.component.task;
 
-import com.zhaoonline.zhaotask.component.redis.RedisClient;
-import com.zhaoonline.zhaotask.component.redis.RedisLock;
-import com.zhaoonline.zhaotask.core.constants.PlatFormConstants;
-import com.zhaoonline.zhaotask.mapper.AuctionMapper;
+
+import com.github.demo.component.redis.RedisClient;
+import com.github.demo.component.redis.RedisLock;
+import com.github.demo.core.constants.PlatFormConstants;
+import com.github.demo.mapper.AuctionMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,22 +65,22 @@ public class CleanRedisHistroyData {
         LOG.info("清理开始:" + System.currentTimeMillis() / 1000);
         try {
             if (StringUtils.isEmpty(lastCleanTime)) {//第一次进行数据清理
-                String[] timeArray = new String[]{  "2010-01-01","2010-06-01",
-                                                    "2011-01-01","2011-06-01",
-                                                    "2012-01-01","2012-06-01",
-                                                    "2013-01-01","2013-06-01",
-                                                    "2014-01-01","2014-06-01",
-                                                    "2015-01-01","2015-06-01",
-                                                    "2016-01-01","2016-06-01",
-                                                    "2017-01-01","2017-06-01",
-                                                    "2018-01-01","2018-06-01"
-                                            };
+                String[] timeArray = new String[]{"2010-01-01", "2010-06-01",
+                        "2011-01-01", "2011-06-01",
+                        "2012-01-01", "2012-06-01",
+                        "2013-01-01", "2013-06-01",
+                        "2014-01-01", "2014-06-01",
+                        "2015-01-01", "2015-06-01",
+                        "2016-01-01", "2016-06-01",
+                        "2017-01-01", "2017-06-01",
+                        "2018-01-01", "2018-06-01"
+                };
                 //查询Auctions表中历史数据的id,清除2010-01-01 到 2018-01-01
-                for (int i = 1; i < timeArray.length ; i++) {
-                    paramMap.put("startTime", timeArray[i-1]);
+                for (int i = 1; i < timeArray.length; i++) {
+                    paramMap.put("startTime", timeArray[i - 1]);
                     paramMap.put("endTime", timeArray[i]);
                     //清除
-                   cleanRedisData(paramMap);
+                    cleanRedisData(paramMap);
                 }
             } else {
                 /**
