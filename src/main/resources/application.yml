@@ -1,0 +1,14 @@
+server:
+   port: 80
+   session:
+      timeout: 30
+spring:
+  application:
+      name: @artifactId@
+  thymeleaf:
+    cache: false
+  profiles:
+    active: @activeProfile@
+  resources:
+    staticLocations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+    add-mappings: false

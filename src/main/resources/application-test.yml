@@ -1,0 +1,54 @@
+server:
+  port: 80
+  compression:
+    enabled: true
+    minResponseSize: 100
+    mimeTypes: application/json,application/javascript,text/css
+
+spring:
+  application:
+    name: @artifactId@
+  profiles:
+    active: @activeProfile@
+  main:
+    bannerMode: console
+  datasource:
+    driveClassName: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@192.168.0.66:1521:zhaotest
+    username: zhao
+    password: zhao
+    jmxEnabled: true
+    testWhileIdle: true
+    testOnBorrow: true
+    testOnReturn: true
+    logAbandoned: true
+    removeAbandoned: true
+    validationInterval: 30000
+    timeBetweenEvictionRunsMillis: 30000
+    # 初始化大小，最小，最大
+    maxActive: 200
+    maxWait: 10000
+    initialSize: 10
+    removeAbandonedTimeout: 60
+    minEvictableIdleTimeMillis: 30000
+    minIdle: 10
+    maxIdle: 50
+    maxAge: 1800000
+    jdbcInterceptors: org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer
+    validationQuery: SELECT 1 from dual
+
+  jackson:
+    dateFormat: "yyyy-MM-dd HH:mm:ss"
+    timeZone: "Asia/Shanghai"
+    deserialization:
+      failOnUnknownProperties: false
+    serialization:
+      indentOutput: false
+      writeNullMapValues: false
+      failOnEmptyBeans: false
+    serializationInclusion: false
+  redis:
+    host: "192.168.0.108"
+    port: 6379
+    database: 0
+    timeout: 5000

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_FILE" value="${LOG_FILE:-/services/logs/zhao-task/info}"/>
+    <property name="AOP_LOG_LEVEL" value="ERROR"/>
+      <property name="LOG_FILE" value="${LOG_FILE:-/services/logs/zhao-task/info}"/>
+	<springProfile name="dev,test,beta">
+		<property name="PROJECT_LOG_LEVEL" value="@logLevel@"/>
+	</springProfile>
+	<springProfile name="prod">
+		<property name="PROJECT_LOG_LEVEL" value="INFO"/>
+	</springProfile>
+	<property name="AOP_LOG_PATTERN" value="${AOP_LOG_PATTERN:-[%d{yyyy-MM-dd HH:mm:ss.sss}][${LOG_LEVEL_PATTERN:-%-5p}]%m%n}"/>
+	<property name="PROJECT_LOG_PATTERN" value="${PROJECT_LOG_PATTERN:-[%d{yyyy-MM-dd HH:mm:ss.sss}][${LOG_LEVEL_PATTERN:-%-5p}][%-20.20logger{0}:%-4L]%m%n}"/>
+	<appender name="AOP_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${AOP_LOG_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+	<appender name="PROJECT_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${PROJECT_LOG_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+	<appender name="DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator>
+				<expression>ERROR > level</expression>
+			</evaluator>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>${PROJECT_LOG_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+		<file>${LOG_FILE}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_FILE}.log.%d{yyyy-MM-dd}</fileNamePattern>
+		</rollingPolicy>
+	</appender>
+	<appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<encoder>
+			<pattern>${PROJECT_LOG_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+		<file>${LOG_FILE}.error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${LOG_FILE}.error.%i</fileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>100MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<springProfile name="test,beta,prod">
+		<logger name="com.zhaoonline.zhaotask" level="${PROJECT_LOG_LEVEL:-${AOP_LOG_LEVEL:-INFO}}" additivity="false">
+			<appender-ref ref="DEBUG_FILE"/>
+			<appender-ref ref="ERROR_FILE"/>
+		</logger>
+	</springProfile>
+	<springProfile name="dev,test">
+		<logger name="com.zhaoonline.zhaotask" level="${PROJECT_LOG_LEVEL:-${AOP_LOG_LEVEL:-INFO}}" additivity="false">
+			<appender-ref ref="PROJECT_CONSOLE"/>
+			<appender-ref ref="DEBUG_FILE"/>
+			<appender-ref ref="ERROR_FILE"/>
+		</logger>
+	</springProfile>
+	
+    <property name="FILE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.sss} ${LOG_LEVEL_PATTERN:-%-5p} %-25.25logger{30}:%-4L %m%n"/>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+	<logger name="org.springframework" level="ERROR"/>
+	<logger name="org.apache" level="ERROR"/>
+	<logger name="org.apache.ibatis" level="ERROR"/>
+	<logger name="com.zhaoonline.zhaotask" level="INFO"/>
+
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>
